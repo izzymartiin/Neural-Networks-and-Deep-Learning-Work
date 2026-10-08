@@ -21,31 +21,27 @@ def perceptron(age, hg, cls):
     w_age = random.random()
     w_hg = random.random()
 
-    N = 25
+    lr = 0.1
+
+    N = 10000000
     for i in range(0, N):
 
-        index_x = random.randint(0, len(age)-1)
+        index_x = i % len(age)
         x = [age[index_x], hg[index_x]]
-        print(index_x)
-    
         dot_product = x[0]*w_age + x[1]*w_hg + w0
-
         if cls[index_x] == 0:
-            if dot_product < 0:
-                continue
-            else:
-                w0 -= 1
-                w_age -= x[0]
-                w_hg -= x[1]
-        elif cls[index_x] == 1:
             if dot_product >= 0:
-                continue
-            else:
-                w0 += 1
-                w_age += x[0]
-                w_hg +=x[1]
+                w0 -= lr
+                w_age -= lr*x[0]
+                w_hg -= lr*x[1]
+        elif cls[index_x] == 1:
+            if dot_product < 0:
+                w0 += lr
+                w_age += lr*x[0]
+                w_hg += lr*x[1]
 
     return w0, w_age, w_hg
+
 
 w0, w_age, w_hg = perceptron(age, hg, cls)
 
