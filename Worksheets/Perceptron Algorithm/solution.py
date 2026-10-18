@@ -29,6 +29,7 @@ def perceptron(age, hg, cls):
         index_x = i % len(age)
         x = [age[index_x], hg[index_x]]
         dot_product = x[0]*w_age + x[1]*w_hg + w0
+        
         if cls[index_x] == 0:
             if dot_product >= 0:
                 w0 -= lr
